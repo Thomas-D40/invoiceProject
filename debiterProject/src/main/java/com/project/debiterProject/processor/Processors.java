@@ -42,6 +42,7 @@ public class Processors {
 			
 		}
 		
+		
 		public ItemProcessor<Client, Client> soldingAccount() {
 			return new ItemProcessor<Client, Client>() {
 

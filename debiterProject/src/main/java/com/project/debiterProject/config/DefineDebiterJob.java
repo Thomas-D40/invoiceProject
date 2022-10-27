@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import com.project.debiterProject.entity.Client;
 import com.project.debiterProject.entity.Invoice;
 import com.project.debiterProject.processor.Processors;
+import com.project.debiterProject.reader.InvoiceJdbcItemReader;
 import com.project.debiterProject.reader.JpaCursorReader;
 import com.project.debiterProject.writer.JpaWriter;
 
@@ -50,6 +51,9 @@ public class DefineDebiterJob {
 	@Autowired
 	private JpaWriter jpaWriter;
 	
+	@Autowired
+	private InvoiceJdbcItemReader jdbcReader;
+	
 		
 	
 	
@@ -63,12 +67,12 @@ public class DefineDebiterJob {
 				.build();
 	}
 	
-	// Storing facture in an Hashmap
+	// Storing invoice in an Hashmap and deleting from table unpaid
 	
 	public Step retrievingFacture() {
 		return stepBuilderFactory.get("retrieving factures")
 				.<Invoice, Invoice>chunk(10)
-				.reader(jpaCursorReader.factureJpaCursorItemReader())
+				.reader(jdbcReader.invoiceJdbcReader())
 				.processor(processors.storingInvoice())
 				.writer(jpaWriter.invoiceJpaItemWriter())
 				.transactionManager(jpaTransactionManager)
@@ -77,10 +81,7 @@ public class DefineDebiterJob {
 	
 
 	
-
-
-	
-	// Debiting 
+	// Taking info from hashMap and db to change the amount of each client
 	public Step debitionStep() {
 		return stepBuilderFactory.get("debiting account")
 				.<Client, Client>chunk(10)

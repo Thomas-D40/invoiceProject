@@ -17,14 +17,14 @@ public class JpaCursorReader {
 	@Qualifier("bankEntityManagerFactory")
 	private EntityManagerFactory bankEntityManagerFactory;
 	
-	public JpaCursorItemReader<Invoice> factureJpaCursorItemReader() {
-		JpaCursorItemReader<Invoice> factureJpaCursorItemReader = new JpaCursorItemReader<>();
+	public JpaCursorItemReader<Invoice> invoiceJpaCursorItemReader() {
+		JpaCursorItemReader<Invoice> invoiceJpaCursorItemReader = new JpaCursorItemReader<>();
 		
-		factureJpaCursorItemReader.setEntityManagerFactory(bankEntityManagerFactory);
-		factureJpaCursorItemReader.setQueryString("From Invoice");
+		invoiceJpaCursorItemReader.setEntityManagerFactory(bankEntityManagerFactory);
+		invoiceJpaCursorItemReader.setQueryString("From Invoice");
 
 		
-		return factureJpaCursorItemReader;
+		return invoiceJpaCursorItemReader;
 	}
 	
 	public JpaCursorItemReader<Client> clientJpaCursorItemReader() {
