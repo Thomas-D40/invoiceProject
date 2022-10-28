@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 
 @XmlRootElement
@@ -26,7 +25,7 @@ public class Invoice implements Serializable{
 	@Column(name = "client_id")
 	private Long clientId;
 	
-	@Column(name = "paid")
+	@Column(name = "paid", columnDefinition = "tinyint default 0")
 	private boolean isPaid;
 
 	public Long getId() {
